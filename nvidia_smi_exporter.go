@@ -41,11 +41,12 @@ func metrics(response http.ResponseWriter, request *http.Request) {
 
     result := ""
     for _, row := range records {
-        name := fmt.Sprintf("%s[%s]", row[0], row[1])
+        name := fmt.Sprintf("%s", row[0])
+        index := fmt.Sprintf("%s", row[1])
         for idx, value := range row[2:] {
             result = fmt.Sprintf(
-                "%s%s{gpu=\"%s\"} %s\n", result,
-                metricList[idx], name, value)
+                "%s%s{gpu=\"%s\", index=\"%s\"} %s\n", result,
+                metricList[idx], name, index, value)
         }
     }
 
